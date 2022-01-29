@@ -1,4 +1,8 @@
 package main.java;
 
-public class ActorKeeper {
+import java.util.List;
+import java.util.Map;
+
+public class ActorKeeper extends AbstractActor {
+    private final Map<String, List<TestResult>>
 }

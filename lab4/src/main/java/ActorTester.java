@@ -1,4 +1,4 @@
 package main.java;
 
-public class ActorTester {
+public class ActorTester extends AbstractActor {
 }
