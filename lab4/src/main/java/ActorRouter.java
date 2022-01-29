@@ -47,6 +47,6 @@ public class ActorRouter extends AbstractActor {
     protected String getPackageID() { return PackageID;}
     protected String getJsScript() { return JsScript;}
     protected String getFuncName() { return funcName;}
-    protected List<TestBody> get
+    protected List<TestBody> get() { return test;}
 
 }
