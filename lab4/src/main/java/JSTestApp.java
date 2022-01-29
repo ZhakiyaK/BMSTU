@@ -89,10 +89,18 @@ public class JSTestApp extends AllDirectives {
             this.tests = tests;
         }
 
-        protected List<TestBody> getTests() { return tests;}
-        protected String getPackageID() { return packageID;}
-        protected String getJsScript() { return jsScript; }
-        protected String getFuncName() { return funcName; }
+        protected List<TestBody> getTests() {
+            return tests;
+        }
+        protected String getPackageID() {
+            return packageID;
+        }
+        protected String getJsScript() {
+            return jsScript;
+        }
+        protected String getFuncName() {
+            return funcName;
+        }
 
 
     }
