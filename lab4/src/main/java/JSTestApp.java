@@ -1,4 +1,5 @@
 package main.java;
 
-public class JSTestApp {
+public class JSTestApp extends AllDirectives {
+    public 
 }
