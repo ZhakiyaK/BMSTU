@@ -1,6 +1,5 @@
 package main.java;
 
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +13,21 @@ public class ActorRouter extends AbstractActor {
         keeper = getContext().actorOf(Props.create(ActorKeeper.class));
         List<Routee> routees = new ArrayList<>();
         for (int i=0; i < TESTERS_AMOUNT; i++) {
-            ActorRef r = getContext().actorOf(PropertyChangeSupport)
+            ActorRef r = getContext().actorOf(Props.create(ActorTester.class));
+            getContext().watch(r);
+            routees.add(new ActorRefRoutee(r));
         }
 
+        router = new Router(new RoundRobinRountingLogic(), routees);
+
     }
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(
+                        JSTestApp.MessageTestPackage.class
+                )
+    }
+
 }
