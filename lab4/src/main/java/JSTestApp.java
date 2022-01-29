@@ -3,6 +3,7 @@ package main.java;
 import java.io.IOException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Future;
 import java.util.regex.Pattern;
@@ -62,5 +63,21 @@ public class JSTestApp extends AllDirectives {
 
     static class MessageGetTestPackageResult {
         private final String packageID;
+
+        public MessageTestPackageResult(String packageID) {
+            this.packageID = packageID;
+        }
+
+        protected String getPackageID() { return packageID}
+    }
+
+    static class MessageTestPackage {
+        private final String packageID;
+        private final String jsScript;
+        private final String funcName;
+        private final List<TestBody> tests;
+
+        @JsonCreator
+
     }
 }
