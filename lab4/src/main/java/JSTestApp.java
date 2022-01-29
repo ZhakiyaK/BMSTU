@@ -78,6 +78,22 @@ public class JSTestApp extends AllDirectives {
         private final List<TestBody> tests;
 
         @JsonCreator
+        public MessageTestPackage(
+                @JsonProperty("packageID") String packageID,
+                @JsonProperty("jsScript") String jsScript,
+                @JsonProperty("functionName") String funcName,
+                @JsonProperty("tests") List<TestBody> tests) {
+            this.packageID = packageID;
+            this.funcName = funcName;
+            this.jsScript = jsScript;
+            this.tests = tests;
+        }
+
+        protected List<TestBody> getTests() { return tests;}
+        protected String getPackageID() { return packageID;}
+        protected String getJsScript() { return jsScript; }
+        protected String getFuncName() { return funcName; }
+
 
     }
 }
