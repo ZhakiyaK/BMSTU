@@ -33,10 +33,17 @@ public class ActorRouter extends AbstractActor {
                             String funcName = message.getFuncName();
 
                             for(TestBody test: message.getTests()) {
-                                router.route(new MessageTest(packageID,jsScript,funcName,test))
+                                router.route(new MessageTest(packageID,jsScript,funcName,test), keeper);
                             }
                         }
                 )
+                .match(
+                        JSTestApp.MessageGetTestPackageResult.class,
+                        message -> keeper.tell(message, sender())
+                )
+                .build();
     }
+
+    protected 
 
 }
