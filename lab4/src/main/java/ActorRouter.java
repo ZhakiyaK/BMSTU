@@ -19,10 +19,10 @@ public class ActorRouter extends AbstractActor {
     private final Router router;
 
     {
-        keeper = getContext().actorOf(Props.create(main.java.ActorKeeper.class));
+        keeper = getContext().actorOf(Props.create(ActorKeeper.class));
         List<Routee> routees = new ArrayList<>();
         for (int i=0; i < TESTERS_AMOUNT; i++) {
-            ActorRef r = getContext().actorOf(Props.create(main.java.ActorTester.class));
+            ActorRef r = getContext().actorOf(Props.create(ActorTester.class));
             getContext().watch(r);
             routees.add(new ActorRefRoutee(r));
         }
@@ -39,7 +39,7 @@ public class ActorRouter extends AbstractActor {
                             String jsScript = message.getJsScript();
                             String funcName = message.getFuncName();
 
-                            for(main.java.TestBody test: message.getTests()) {
+                            for(TestBody test: message.getTests()) {
                                 router.route(new MessageTest(packageID,jsScript,funcName,test), keeper);
                             }
                         }
