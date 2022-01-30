@@ -23,12 +23,7 @@ public class ActorKeeper extends AbstractActor {
             results.get(packageID).add(m.getTestResult());
         }
         else {
-            results.put(
-                    m.getPackageId(),
-                    new ArrayList<>(
-                            Collections.singleton(m.getTestResult())
-                    )
-            );
+            results.put(m.getPackageId(), new ArrayList<>(Collections.singleton(m.getTestResult())));
         }
         System.out.println("Received message: " + m);
     }
