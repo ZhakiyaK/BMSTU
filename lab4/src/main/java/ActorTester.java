@@ -17,7 +17,7 @@ public class ActorTester extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(ActorRouter.MessageTest.class, m -> sender().tell(runTest(m), self() ) )
+                .match(main.java.ActorRouter.MessageTest.class, m -> sender().tell(runTest(m), self() ) )
                 .build();
     }
 
@@ -28,7 +28,7 @@ public class ActorTester extends AbstractActor {
         return invocable.invokeFunction(functionName,params).toString();
     }
 
-    private MessageTestResult runTest(ActorRouter.MessageTest message) {
+    private MessageTestResult runTest(main.java.ActorRouter.MessageTest message) {
         String received;
         String status;
         String expected = message.getTests().getExpectedResult();
@@ -45,7 +45,7 @@ public class ActorTester extends AbstractActor {
             received = EMPTY_STRING;
         }
         return new MessageStoreTestResult(
-                message.getPackageID(),
+                message.getPackageID(,
                 status,
                 message.getTest().getTestName(),
                 expected,

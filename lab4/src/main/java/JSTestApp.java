@@ -73,7 +73,7 @@ public class JSTestApp extends AllDirectives {
     static class MessageGetTestPackageResult {
         private final String packageID;
 
-        public MessageTestPackageResult(String packageID) {
+        public Message(String packageID) {
             this.packageID = packageID;
         }
 
@@ -91,14 +91,14 @@ public class JSTestApp extends AllDirectives {
                 @JsonProperty("packageID") String packageID,
                 @JsonProperty("jsScript") String jsScript,
                 @JsonProperty("functionName") String funcName,
-                @JsonProperty("tests") List<TestBody> tests) {
+                @JsonProperty("tests") List<main.java.TestBody> tests) {
             this.packageID = packageID;
             this.funcName = funcName;
             this.jsScript = jsScript;
             this.tests = tests;
         }
 
-        protected List<TestBody> getTests() {
+        protected List<main.java.TestBody> getTests() {
             return tests;
         }
         protected String getPackageID() {
