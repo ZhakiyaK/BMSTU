@@ -12,16 +12,15 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import scala.concurrent.Future;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Future;
-
 
 
 public class JSTestApp extends AllDirectives {
@@ -57,7 +56,7 @@ public class JSTestApp extends AllDirectives {
 
         )),
         path("result", () -> route(get( () -> parameter("packageId", (id) -> {
-                                    Future<Object> result = Pattern.ask(
+                                    Future<Object> result = Patterns.ask(
                                             actorRouter,
                                             new MessageGetTestPackageResult(id),
                                             5000
