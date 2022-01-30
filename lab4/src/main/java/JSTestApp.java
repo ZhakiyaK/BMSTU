@@ -114,4 +114,7 @@ public class JSTestApp extends AllDirectives {
 
 
     }
+
+    private static class TestBody {
+    }
 }
