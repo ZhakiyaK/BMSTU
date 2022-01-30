@@ -13,7 +13,8 @@ public class ActorKeeper extends AbstractActor {
                 .match(ActorTester.MessageStoreTestResult.class,
                         this::storeResult
                 )
-                .match(JSTestApp.MessageGetTestPackageResult.class, req -> sender().tell(new MessageReturnResults(req.getPackageID(), results.get(req.getPackageID())), self()))
+                .match(JSTestApp.MessageGetTestPackageResult.class, req -> sender().tell(
+                        new MessageReturnResults(req.getPackageID(), results.get(req.getPackageID())), self()))
                 .build();
     }
 
