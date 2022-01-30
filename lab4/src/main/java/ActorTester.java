@@ -55,18 +55,18 @@ public class ActorTester extends AbstractActor {
         private static final String NEW_LINE_CHARACTER = "\n";
 
         private final String packageId;
-        private final main.java.TestResult result;
+        private final TestResult result;
 
         public MessageStoreTestResult(String packageId, String status, String testName, String expectedResult, String receivedResult) {
             this.packageId = packageId;
-            this.result = new main.java.TestResult(status,testName,expectedResult,receivedResult);
+            this.result = new TestResult(status,testName,expectedResult,receivedResult);
         }
 
         protected String getPackageId() {
             return packageId;
         }
 
-        protected main.java.TestResult getResult() {
+        protected TestResult getResult() {
             return result;
         }
 
