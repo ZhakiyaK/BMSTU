@@ -67,11 +67,11 @@ public class ActorRouter extends AbstractActor {
 
 
         protected String getPackageID() {
-            return packageID
+            return packageID;
         }
 
         protected String getJsScript() {
-            return JsScript;
+            return jsScript;
         }
 
         protected String getFuncName() {
