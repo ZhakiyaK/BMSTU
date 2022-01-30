@@ -10,11 +10,11 @@ public class ActorKeeper extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(ActorTester.MessageStoreTestResult.class,
+                .match(main.java.ActorTester.MessageStoreTestResult.class,
                         this.storeResult
                 )
                 .match(
-                        JSTestApp.MessageGetTestPackageResult.class,
+                        main.java.JSTestApp.MessageGetTestPackageResult.class,
                         req -> sender().tell(
                                 new MessageReturnResults(
                                         req.getPackageID(),
@@ -26,7 +26,7 @@ public class ActorKeeper extends AbstractActor {
                 .build();
     }
 
-    private void storeResult(ActorTester.MessageStoreTestResult m) {
+    private void storeResult(main.java.ActorTester.MessageStoreTestResult m) {
         String packageID = m.getPackageID();
         if (results.containsKey(packageID)) {
             results.get(packageID).add(m.getTestResult());
