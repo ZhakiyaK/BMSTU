@@ -44,12 +44,7 @@ public class ActorTester extends AbstractActor {
             status = TEST_CRASHED_STATUS;
             received = EMPTY_STRING;
         }
-        return new MessageStoreTestResult(message.getPackageID(,
-                status,
-                message.getTest().getTestName(),
-                expected,
-                received
-        );
+        return new MessageStoreTestResult(message.getPackageID(), status, message.getTest().getTestName(), expected, received);
     }
 
     private static boolean isEqual(String expected, String received) {
@@ -79,5 +74,6 @@ public class ActorTester extends AbstractActor {
         public String toString() {
             return "PackageId: " + packageId + NEW_LINE_CHARACTER + result;
         }
+
     }
 }

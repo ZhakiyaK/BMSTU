@@ -1,6 +1,6 @@
-package main.java;
-
 import akka.actor.AbstractActor;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 
@@ -10,23 +10,14 @@ public class ActorKeeper extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(main.java.ActorTester.MessageStoreTestResult.class,
+                .match(ActorTester.MessageStoreTestResult.class,
                         this.storeResult
                 )
-                .match(
-                        main.java.JSTestApp.MessageGetTestPackageResult.class,
-                        req -> sender().tell(
-                                new MessageReturnResults(
-                                        req.getPackageID(),
-                                        results.get(req.getPackageID())
-                                ),
-                                self()
-                        )
-                )
+                .match(JSTestApp.MessageGetTestPackageResult.class, req -> sender().tell(new MessageReturnResults(req.getPackageID(), results.get(req.getPackageID())), self()))
                 .build();
     }
 
-    private void storeResult(main.java.ActorTester.MessageStoreTestResult m) {
+    private void storeResult(ActorTester.MessageStoreTestResult m) {
         String packageID = m.getPackageID();
         if (results.containsKey(packageID)) {
             results.get(packageID).add(m.getTestResult());
@@ -44,11 +35,12 @@ public class ActorKeeper extends AbstractActor {
 
     static class MessageReturnResults {
         private final String packageID;
-        private final List<TestResult> results;
+        private final List<main.java.TestResult> results;
 
+        @JsonCreator
         public MessageReturnResults(
                 @JsonProperty("packageId") String packageID;
-                @JsonProperty("results") List<TestResult> results) {
+                @JsonProperty("results") List<main.java.TestResult> results) {
             this.packageID = packageID;
             this.results = results;
         }
@@ -57,7 +49,7 @@ public class ActorKeeper extends AbstractActor {
             return packageID;
         }
 
-        public List<TestResult> getResults() {
+        public List<main.java.TestResult> getResults() {
             return results;
         }
 
