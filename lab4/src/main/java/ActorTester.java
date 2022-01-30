@@ -1,4 +1,4 @@
-package main.java;
+
 
 import akka.actor.AbstractActor;
 
@@ -17,7 +17,7 @@ public class ActorTester extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(main.java.ActorRouter.MessageTest.class, m -> sender().tell(runTest(m), self() ) )
+                .match(ActorRouter.MessageTest.class, m -> sender().tell(runTest(m), self() ) )
                 .build();
     }
 
