@@ -52,17 +52,17 @@ public class ActorRouter extends AbstractActor {
         private final String packageID;
         private final String jsScript;
         private final String funcName;
-        private final TestBody test;
+        private final main.java.TestBody test;
 
         @JsonCreator
         public MessageTest(@JsonProperty("packageId") String packageID,
                            @JsonProperty("jsScript") String jsScript,
                            @JsonProperty("funcName") String funcName,
-                           @JsonProperty("test") List<TestBody> test) {
+                           @JsonProperty("test") List<main.java.TestBody> test) {
             this.packageID = packageID;
             this.jsScript = jsScript;
             this.funcName = funcName;
-            this.test = test;
+            this.test = (main.java.TestBody) test;
         }
 
 
@@ -78,9 +78,10 @@ public class ActorRouter extends AbstractActor {
             return funcName;
         }
 
-        protected  TestBody getTest() {
+        protected main.java.TestBody getTest() {
             return test;
         }
 
     }
+
 }
