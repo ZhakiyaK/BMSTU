@@ -34,8 +34,7 @@ public class ActorRouter extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(JSTestApp.MessageTestPackage.class,
-                        message -> {
+                .match(JSTestApp.MessageTestPackage.class, message -> {
                             String packageID = message.getPackageID();
                             String jsScript = message.getJSScript();
                             String funcName = message.getFuncName();
