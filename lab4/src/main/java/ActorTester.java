@@ -28,10 +28,10 @@ public class ActorTester extends AbstractActor {
         return invocable.invokeFunction(functionName,params).toString();
     }
 
-    private MessageTestResult runTest(main.java.ActorRouter.MessageTest message) {
+    private MessageStoreTestResult runTest(ActorRouter.MessageTest message) {
         String received;
         String status;
-        String expected = message.getTests().getExpectedResult();
+        String expected = message.getTest().getExpectedResult();
         try {
             received = execJS(
                     message.getJsScript(),
@@ -44,7 +44,12 @@ public class ActorTester extends AbstractActor {
             status = TEST_CRASHED_STATUS;
             received = EMPTY_STRING;
         }
-        return new MessageStoreTestResult(message.getPackageID(), status, message.getTest().getTestName(), expected, received);
+        return new MessageStoreTestResult(
+                message.getPackageID(),
+                status,
+                message.getTest().getTestName(),
+                expected,
+                received);
     }
 
     private static boolean isEqual(String expected, String received) {
@@ -66,7 +71,7 @@ public class ActorTester extends AbstractActor {
             return packageId;
         }
 
-        protected TestResult getResult() {
+        protected TestResult getTestResult() {
             return result;
         }
 
