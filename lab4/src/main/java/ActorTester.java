@@ -34,7 +34,7 @@ public class ActorTester extends AbstractActor {
             received = execJS(
                     message.getJsScript(),
                     message.getFuncName(),
-                    message.getTests().getParams
+                    message.getTests().getParams()
             )
         }
     }
