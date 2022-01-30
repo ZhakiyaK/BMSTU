@@ -36,7 +36,7 @@ public class ActorRouter extends AbstractActor {
         return receiveBuilder()
                 .match(JSTestApp.MessageTestPackage.class, message -> {
                             String packageID = message.getPackageID();
-                            String jsScript = message.getJSScript();
+                            String jsScript = message.getJsScript();
                             String funcName = message.getFuncName();
 
                             for(main.java.TestBody test: message.getTests()) {
