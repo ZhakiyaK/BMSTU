@@ -1,5 +1,16 @@
 package main.java;
 
+import akka.NotUsed;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
+import akka.http.javadsl.ConnectHttp;
+import akka.http.javadsl.Http;
+import akka.http.javadsl.ServerBinding;
+import akka.http.javadsl.server.AllDirectives;
+import akka.stream.ActorMaterializer;
+import akka.stream.javadsl.Flow;
+
 import java.io.IOException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -8,13 +19,13 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Future;
 import java.util.regex.Pattern;
 
-import akka.hhtp.javadsl.server.AllDirectives;
+
 public class JSTestApp extends AllDirectives {
     public static final String ACTOR_SYSTEM_NAME = "js_test_app";
 
     public static void main(String[] args) throws IOException {
         ActorSystem actorSystem = ActorSystem.create(ACTOR_SYSTEM_NAME);
-        ActorRef actorRouter = actorSystem.actorOf(Props.create(ActorRouter.class));
+        ActorRef actorRouter = actorSystem.actorOf(Props.create(main.java.ActorRouter.class));
 
         final Http http = Http.get(actorSystem);
         final ActorMaterializer materializer = ActorMaterializer.create(actorSystem);
