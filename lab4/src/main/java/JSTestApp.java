@@ -72,21 +72,21 @@ public class JSTestApp extends AllDirectives {
         private final String packageID;
         private final String jsScript;
         private final String funcName;
-        private final List<main.java.TestBody> tests;
+        private final List<TestBody> tests;
 
         @JsonCreator
         public MessageTestPackage(
                 @JsonProperty("packageID") String packageID,
                 @JsonProperty("jsScript") String jsScript,
                 @JsonProperty("functionName") String funcName,
-                @JsonProperty("tests") List<main.java.TestBody> tests) {
+                @JsonProperty("tests") List<TestBody> tests) {
             this.packageID = packageID;
             this.funcName = funcName;
             this.jsScript = jsScript;
             this.tests = tests;
         }
 
-        protected List<main.java.TestBody> getTests() {
+        protected List<TestBody> getTests() {
             return tests;
         }
 
