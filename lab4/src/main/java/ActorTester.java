@@ -36,7 +36,7 @@ public class ActorTester extends AbstractActor {
                     message.getFuncName(),
                     message.getTests().getParams()
             );
-            
+            status = isEqual
         }
     }
 }
