@@ -44,8 +44,7 @@ public class ActorTester extends AbstractActor {
             status = TEST_CRASHED_STATUS;
             received = EMPTY_STRING;
         }
-        return new MessageStoreTestResult(
-                message.getPackageID(,
+        return new MessageStoreTestResult(message.getPackageID(,
                 status,
                 message.getTest().getTestName(),
                 expected,
