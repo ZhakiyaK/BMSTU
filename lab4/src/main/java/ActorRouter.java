@@ -78,9 +78,7 @@ public class ActorRouter extends AbstractActor {
             return funcName;
         }
 
-        protected List<TestBody> get() {
-            return test;
-        }
+        protected  TetsBody
 
     }
 
