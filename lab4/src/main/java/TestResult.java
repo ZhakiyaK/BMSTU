@@ -1,5 +1,6 @@
 package main.java;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TestResult {
@@ -8,6 +9,7 @@ public class TestResult {
     private final String expectedResult;
     private final String receivedREsult;
 
+    @JsonCreator
     public TestResult(@JsonProperty("status") String status,
                       @JsonProperty("testName") String testName,
                       @JsonProperty("expectedResult") String expectedResult,
