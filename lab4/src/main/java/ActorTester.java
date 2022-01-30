@@ -80,8 +80,5 @@ public class ActorTester extends AbstractActor {
         public String toString() {
             return "PackageId: " + packageId + NEW_LINE_CHARACTER + result;
         }
-
-        public String getPackageID() {
-        }
     }
 }
