@@ -79,11 +79,8 @@ public class ActorRouter extends AbstractActor {
         }
 
         protected  TestBody getTest() {
-            return 
+            return test;
         }
 
-    }
-
-    private static class TestBody {
     }
 }
