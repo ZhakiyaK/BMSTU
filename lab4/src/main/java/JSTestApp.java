@@ -84,7 +84,7 @@ public class JSTestApp extends AllDirectives {
         private final String packageID;
         private final String jsScript;
         private final String funcName;
-        private final List<TestBody> tests;
+        private final List<main.java.TestBody> tests;
 
         @JsonCreator
         public MessageTestPackage(
