@@ -67,7 +67,7 @@ public class ActorRouter extends AbstractActor {
 
 
         protected String getPackageID() {
-            return PackageID;
+            return packageID
         }
 
         protected String getJsScript() {
