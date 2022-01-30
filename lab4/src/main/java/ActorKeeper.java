@@ -1,9 +1,11 @@
 package main.java;
 
+import akka.actor.AbstractActor;
+
 import java.util.*;
 
 public class ActorKeeper extends AbstractActor {
-    private final Map<String, List<TestResult>> results = new HashMap<>();
+    private final Map<String, List<main.java.TestResult>> results = new HashMap<>();
 
     @Override
     public Receive createReceive() {

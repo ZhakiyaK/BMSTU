@@ -88,4 +88,6 @@ public class ActorRouter extends AbstractActor {
 
     }
 
+    private static class TestBody {
+    }
 }
