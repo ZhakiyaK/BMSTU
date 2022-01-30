@@ -35,7 +35,7 @@ public class ActorKeeper extends AbstractActor {
         @JsonCreator
         public MessageReturnResults(
                 @JsonProperty("packageId") String packageID;
-                @JsonProperty("results") List<main.java.TestResult> results) {
+                @JsonProperty("results") List<TestResult> results) {
             this.packageID = packageID;
             this.results = results;
         }
@@ -44,7 +44,7 @@ public class ActorKeeper extends AbstractActor {
             return packageID;
         }
 
-        public List<main.java.TestResult> getResults() {
+        public List<TestResult> getResults() {
             return results;
         }
 
