@@ -35,7 +35,8 @@ public class ActorTester extends AbstractActor {
                     message.getJsScript(),
                     message.getFuncName(),
                     message.getTests().getParams()
-            )
+            );
+            
         }
     }
 }
