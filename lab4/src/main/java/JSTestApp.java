@@ -7,6 +7,7 @@ import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
+import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Future;
-import java.util.regex.Pattern;
+
 
 
 public class JSTestApp extends AllDirectives {
@@ -37,37 +38,31 @@ public class JSTestApp extends AllDirectives {
         final CompletionStage<ServerBinding> binding;
         binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost(host:"localhost", port: 8080),
+                ConnectHttp.toHost("localhost", 8080),
                 materializer
         );
         System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
         System.in.read();
-        binding
-                .thenCompose(ServerBinding::unbind);
-                .thenAccept(unbound -> actorSystem.terminate());
+        binding.thenCompose(ServerBinding::unbind);
+        binding.thenAccept(unbound -> actorSystem.terminate());
+
     }
 
     private Route createRoute(ActorRef actorRouter) {
         return route(
-                path(segment:"test", () ->
-                      route(
-                              post(() ->
-                                        entity(Jacson.unmarshaller(MessageTestPackage.class), message -> {
-           actorRouter.tell(message.ActorRef.noSender());
-           return complete(body:"Test started!");
+                path("test", () -> route(post(() -> entity(Jackson.unmarshaller(MessageTestPackage.class), message -> {
+                    actorRouter.tell(message, ActorRef.noSender());
+                    return complete("Test started!");
                                         }))
 
         )),
-        path(segment:"result". () ->
-                route(
-                        get(
-                                () -> parameter(name: "packageId". (id) -> {
+        path("result", () -> route(get( () -> parameter("packageId", (id) -> {
                                     Future<Object> result = Pattern.ask(
                                             actorRouter,
                                             new MessageGetTestPackageResult(id),
-                                            timeoutMillis: 5000
+                                            5000
                                     );
-                                    return completeOKWithFuture(result, Jackson,marshaller());
+                                    return completeOKWithFuture(result, Jackson.marshaller());
                                  })
                         )
                 )
