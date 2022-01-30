@@ -1,12 +1,13 @@
 package main.java;
 
-import ActorKeeper.ActorKeeper;
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.routing.ActorRefRoutee;
+import akka.routing.RoundRobinRoutingLogic;
 import akka.routing.Routee;
 import akka.routing.Router;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,15 @@ public class ActorRouter extends AbstractActor {
     private final Router router;
 
     {
-        keeper = getContext().actorOf(Props.create(ActorKeeper.class));
+        keeper = getContext().actorOf(Props.create(main.java.ActorKeeper.class));
         List<Routee> routees = new ArrayList<>();
         for (int i=0; i < TESTERS_AMOUNT; i++) {
-            ActorRef r = getContext().actorOf(Props.create(ActorTester.class));
+            ActorRef r = getContext().actorOf(Props.create(main.java.ActorTester.class));
             getContext().watch(r);
             routees.add(new ActorRefRoutee(r));
         }
 
-        router = new Router(new RoundRobinRountingLogic(), routees);
+        router = new Router(new RoundRobinRoutingLogic(), routees);
 
     }
 
@@ -34,19 +35,19 @@ public class ActorRouter extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(
-                        JSTestApp.MessageTestPackage.class,
+                        main.java.JSTestApp.MessageTestPackage.class,
                         message -> {
                             String packageID = message.getPackageID();
                             String jsScript = message.getJSScript();
                             String funcName = message.getFuncName();
 
-                            for(TestBody test: message.getTests()) {
+                            for(main.java.TestBody test: message.getTests()) {
                                 router.route(new MessageTest(packageID,jsScript,funcName,test), keeper);
                             }
                         }
                 )
                 .match(
-                        JSTestApp.MessageGetTestPackageResult.class,
+                        main.java.JSTestApp.MessageGetTestPackageResult.class,
                         message -> keeper.tell(message, sender())
                 )
                 .build();
@@ -56,7 +57,7 @@ public class ActorRouter extends AbstractActor {
         private final String packageID;
         private final String jsScript;
         private final String funcName;
-        private final List<TestBody> test;
+        private final List<main.java.TestBody> test;
 
         public MessageTest(@JsonProperty("packageId") String packageID,
                            @JsonProperty("jsScript") String jsScript,
