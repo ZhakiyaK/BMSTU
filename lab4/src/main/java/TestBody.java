@@ -1,6 +1,7 @@
 package main.java;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TestBody {
     private final String testName;

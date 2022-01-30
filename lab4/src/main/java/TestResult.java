@@ -1,5 +1,7 @@
 package main.java;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TestResult {
     private final String status;
     private final String testName;
