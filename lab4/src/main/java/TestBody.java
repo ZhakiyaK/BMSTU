@@ -1,10 +1,13 @@
 package main.java;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class TestBody {
     private final String testName;
     private final Object[] params;
     private final String expectedResult;
 
+    @JsonCreator
     public TestBody(
             @JsonProperty("testName") String testName,
             @JsonProperty("params") Object[] params,
