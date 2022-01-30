@@ -13,12 +13,17 @@ public class ActorKeeper extends AbstractActor {
                 .match(ActorTester.MessageStoreTestResult.class,
                         this::storeResult
                 )
-                .match(JSTestApp.MessageGetTestPackageResult.class, req -> sender().tell(new MessageReturnResults(req.getPackageID(), results.get(req.getPackageID()));
-                .build();
+                .match(
+                        JSTestApp.MessageGetTestPackageResult.class,
+                        req -> sender().tell(
+                                new MessageReturnResults(
+                                        req.getPackageID(),
+                                        results.get(req.getPackageID())
+                                ), self())).build();
     }
 
     private void storeResult(ActorTester.MessageStoreTestResult m) {
-        String packageID = m.getPackageID();
+        String packageID = m.getPackageId();
         if (results.containsKey(packageID)) {
             results.get(packageID).add(m.getTestResult());
         }
@@ -30,11 +35,11 @@ public class ActorKeeper extends AbstractActor {
 
     static class MessageReturnResults {
         private final String packageID;
-        private final List<main.java.TestResult> results;
+        private final List<TestResult> results;
 
         @JsonCreator
         public MessageReturnResults(
-                @JsonProperty("packageId") String packageID;
+                @JsonProperty("packageId") String packageID,
                 @JsonProperty("results") List<TestResult> results) {
             this.packageID = packageID;
             this.results = results;

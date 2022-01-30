@@ -67,7 +67,7 @@ public class ActorTester extends AbstractActor {
             this.result = new TestResult(status,testName,expectedResult,receivedResult);
         }
 
-        protected String getPackageId() {
+        public String getPackageId() {
             return packageId;
         }
 
