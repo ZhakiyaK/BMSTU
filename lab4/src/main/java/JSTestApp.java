@@ -50,34 +50,22 @@ public class JSTestApp extends AllDirectives {
 
     private Route createRoute(ActorRef actorRouter) {
         return route(
-                path("test", () -> route(post(() -> entity(Jackson.unmarshaller(MessageTestPackage.class), message -> {
-                    actorRouter.tell(message, ActorRef.noSender());
-                    return complete("Test started!");
-                                        }))
-
-        )),
-        path("result", () -> route(get( () -> parameter("packageId", (id) -> {
-                                    Future<Object> result = Patterns.ask(
-                                            actorRouter,
-                                            new MessageGetTestPackageResult(id),
-                                            5000
-                                    );
-                                    return completeOKWithFuture(result, Jackson.marshaller());
-                                 })
-                        )
-                )
-        )
-            );
+                path("test", () -> route(post(() -> entity(Jackson.unmarshaller(MessageTestPackage.class), message -> { actorRouter.tell(message, ActorRef.noSender());
+                                    return complete("Test started!"); })))),
+                path("result", () -> route(get( () -> parameter("packageId", (id) -> { Future<Object> result = Patterns.ask( actorRouter, new MessageGetTestPackageResult(id), 5000);
+                                    return completeOKWithFuture(result, Jackson.marshaller()); })))));
     }
 
     static class MessageGetTestPackageResult {
+
         private final String packageID;
 
         public MessageGetTestPackageResult(String packageID) {
             this.packageID = packageID;
         }
 
-        protected String getPackageID() { return packageID;}
+        protected String getPackageID() {
+            return packageID;}
     }
 
     static class MessageTestPackage {
@@ -103,12 +91,13 @@ public class JSTestApp extends AllDirectives {
         }
 
         protected String getPackageID() {
-            
             return packageID;
         }
+
         protected String getJsScript() {
             return jsScript;
         }
+
         protected String getFuncName() {
             return funcName;
         }

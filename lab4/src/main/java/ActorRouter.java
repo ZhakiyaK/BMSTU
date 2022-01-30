@@ -1,4 +1,3 @@
-package main.java;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
