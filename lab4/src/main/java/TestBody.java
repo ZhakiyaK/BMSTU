@@ -16,7 +16,7 @@ public class TestBody {
     }
 
     protected String getTestName() {
-        return testName
+        return testName;
     }
 
     protected  Object[] getParams() {
