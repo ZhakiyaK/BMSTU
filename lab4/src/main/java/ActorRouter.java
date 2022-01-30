@@ -50,7 +50,6 @@ public class ActorRouter extends AbstractActor {
         private final String funcName;
         private final List<TestBody> test;
 
-        @JsonCreator
         public MessageTest(@JsonProperty("packageId") String packageID,
                            @JsonProperty("jsScript") String jsScript,
                            @JsonProperty("funcName") String funcName,

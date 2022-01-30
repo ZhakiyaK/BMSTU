@@ -44,7 +44,6 @@ public class ActorKeeper extends AbstractActor {
         private final String packageID;
         private final List<TestResult> results;
 
-        @JsonCreator
         public MessageReturnResults(
                 @JsonProperty("packageId") String packageID;
                 @JsonProperty("results") List<TestResult> results) {

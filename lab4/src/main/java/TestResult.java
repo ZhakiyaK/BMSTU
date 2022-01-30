@@ -6,7 +6,6 @@ public class TestResult {
     private final String expectedResult;
     private final String receivedREsult;
 
-    @JsonCreator
     public TestResult(@JsonProperty("status") String status,
                       @JsonProperty("testName") String testName,
                       @JsonProperty("expectedResult") String expectedResult,
