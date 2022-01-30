@@ -44,10 +44,7 @@ public class ActorRouter extends AbstractActor {
                             }
                         }
                 )
-                .match(
-                        main.java.JSTestApp.MessageGetTestPackageResult.class,
-                        message -> keeper.tell(message, sender())
-                )
+                .match(JSTestApp.MessageGetTestPackageResult.class, message -> keeper.tell(message, sender()))
                 .build();
     }
 
@@ -55,7 +52,7 @@ public class ActorRouter extends AbstractActor {
         private final String packageID;
         private final String jsScript;
         private final String funcName;
-        private final List<main.java.TestBody> test;
+        private final List<TestBody> test;
 
         @JsonCreator
         public MessageTest(@JsonProperty("packageId") String packageID,
