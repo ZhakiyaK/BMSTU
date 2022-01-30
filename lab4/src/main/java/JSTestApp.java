@@ -73,7 +73,7 @@ public class JSTestApp extends AllDirectives {
     static class MessageGetTestPackageResult {
         private final String packageID;
 
-        public Message(String packageID) {
+        public MessageGetTestPackageResult(String packageID) {
             this.packageID = packageID;
         }
 
