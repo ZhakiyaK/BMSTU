@@ -34,9 +34,49 @@ public class ActorTester extends AbstractActor {
             received = execJS(
                     message.getJsScript(),
                     message.getFuncName(),
-                    message.getTests().getParams()
+                    message.getTest().getParams()
             );
-            status = isEqual(received, expected)
+            status = isEqual(received, expected) ? TEST_PASSED_STATTUS : TEST_FAILED_STATUS;
+        }
+        catch (ScriptException | NoSuchMethodException e) {
+            status = TEST_CRASHED_STATUS;
+            received = EMPTY_STRING;
+        }
+        return new MessageStoreTestResult(
+                message.getPackageID(),
+                status,
+                message.getTest().getTestName(),
+                expected,
+                received
+        );
+    }
+
+    private static boolean isEqual(String expected, String received) {
+        return expected.equals(received);
+    }
+
+    static class MessageStoreTestResult {
+        private static final String NEW_LINE_CHARACTER = "\n";
+
+        private final String packageId;
+        private final TestResult result;
+
+        public MessageStoreTestResult(String packageId, String status, String testName, String expectedResult, String receivedResult) {
+            this.packageId = packageId;
+            this.result = new TestResult(status,testName,expectedResult,receivedResult);
+        }
+
+        protected String getPackageId() {
+            return packageId;
+        }
+
+        protected TestResult getResult() {
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "PackageId: " + packageId + NEW_LINE_CHARACTER + result;
         }
     }
 }
