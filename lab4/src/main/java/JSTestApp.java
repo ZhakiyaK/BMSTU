@@ -77,7 +77,7 @@ public class JSTestApp extends AllDirectives {
             this.packageID = packageID;
         }
 
-        protected String getPackageID() { return packageID}
+        protected String getPackageID() { return packageID;}
     }
 
     static class MessageTestPackage {
@@ -101,7 +101,9 @@ public class JSTestApp extends AllDirectives {
         protected List<main.java.TestBody> getTests() {
             return tests;
         }
+
         protected String getPackageID() {
+            
             return packageID;
         }
         protected String getJsScript() {
