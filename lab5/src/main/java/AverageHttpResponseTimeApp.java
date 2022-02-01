@@ -8,12 +8,15 @@ import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.Query;
+import akka.japi.Function2;
 import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Sink;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -57,8 +60,10 @@ public class AverageHttpResponseTimeApp {
                                                                                                                 java.time.Duration.ofMillis(TIMEOUT_MILLISEC))
                                                                                                           .thenCompose( res -> {
                                                                                                               if (((Optional<Long>) res).isPresent()) {
-                                                                                                                  return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get())))
-                                                                                                              }
+                                                                                                                  return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get()));
+                                                                                                              } else {
+                                                                                                                  Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
+                                                                                                                  Sink<Pair<String,Integer>, CompletionStage<Long>> sink = Flow.<Pair<String, Integer>> create().mapConcat(r -> new ArrayList<>(Colle))
                                                                                                           }
                                           ))
     }
