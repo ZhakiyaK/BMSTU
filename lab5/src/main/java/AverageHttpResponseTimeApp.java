@@ -57,7 +57,7 @@ public class AverageHttpResponseTimeApp {
                                                                                                                 java.time.Duration.ofMillis(TIMEOUT_MILLISEC))
                                                                                                           .thenCompose( res -> {
                                                                                                               if (((Optional<Long>) res).isPresent()) {
-                                                                                                                  return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional))))
+                                                                                                                  return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get())))
                                                                                                               }
                                                                                                           }
                                           ))
