@@ -1,1 +1,3 @@
-public class AverageHttpResponseTimeApp {}
+public class AverageHttpResponseTimeApp {
+    private 
+}
