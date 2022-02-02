@@ -72,7 +72,7 @@ public class AverageHttpResponseTimeApp {
                                     if (((Optional<Long>) res).isPresent()) {
                                         return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get()));
                                     } else {
-                                        Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0, (Function2<Long, Integer, Long>) Long::sum);
+                                        Sink<Integer, CompletionStage<Long>> fold = Sink.fold(, (Function2<Long, Integer, Long>) Long::sum);
                                         Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
                                                 .<Pair<String, Integer>>create()
                                                 .mapConcat(r -> new ArrayList<>(Collections.nCopies(r.second(), r.first())))
