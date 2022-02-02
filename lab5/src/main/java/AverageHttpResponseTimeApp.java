@@ -32,7 +32,7 @@ import static sun.jvm.hotspot.code.CompressedStream.L;
 public class AverageHttpResponseTimeApp {
     private static final String QUERY_PARAMETER_URL = "testUrl";
     private static final String QUERY_PARAMETER_COUNT = "count";
-    private static final long 0L
+    private static final long FOLD_ZERO = 0L;
     private static final int TIMEOUT_MILLISEC = 7000;
     private static final int MAP_PARALLELISM_FOR_EACH_GET_REQUEST = 1;
     private static final int PORT = 8080;
