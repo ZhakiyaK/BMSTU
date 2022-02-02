@@ -13,10 +13,16 @@ import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
+import akka.stream.javadsl.Source;
+import org.asynchttpclient.Dsl;
+import org.asynchttpclient.Request;
+import org.asynchttpclient.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -63,7 +69,19 @@ public class AverageHttpResponseTimeApp {
                                                                                                                   return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get()));
                                                                                                               } else {
                                                                                                                   Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
-                                                                                                                  Sink<Pair<String,Integer>, CompletionStage<Long>> sink = Flow.<Pair<String, Integer>> create().mapConcat(r -> new ArrayList<>(Colle))
+                                                                                                                  Sink<Pair<String,Integer>, CompletionStage<Long>> sink = Flow.<Pair<String, Integer>> create().mapConcat(r -> new ArrayList<>(Collections.nCopies(r.second(), r.first())))
+                                                                                                                                                                                                                .mapAsync(req.second(), url -> {
+                                                                                                                                                                                                                long start = System.currentTimeMillis();
+                                                                                                                                                                                                                    Request request = Dsl.get(url).build();
+                                                                                                                                                                                                                    CompletableFuture<Response> whenResponse = Dsl.asyncHttpClient().executeRequest(request).toCompletableFuture();
+                                                                                                                                                                                                                    return whenResponse.thenCompose(response -> {
+                                                                                                                                                                                                                        int duration = (int) (System.currentTimeMillis() - start);
+                                                                                                                                                                                                                        return CompletableFuture.completedFuture(duration);
+                                                                                                                                                                                                                    });
+                                                                                                                                                                                                                })
+                                                                                                              })
+                                                                                                              .toMat(fold, Keep.right());
+                                                                                                              return Source.from(Collections.singletonList(req))
                                                                                                           }
                                           ))
     }
