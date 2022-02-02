@@ -10,8 +10,18 @@ public class ActorCache extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(AverageHttpResponseTimeApp.MessageGetResult.class, message -> sender().tell(Optional.ofNullable(results.get(message.getUrl()))), self())
-                .match(AverageHttpResponseTimeApp.MessageGetResult.class, message -> results.put(message.getUrl(), message.getResponseTime()))
+                .match(
+                        AverageHttpResponseTimeApp.MessageGetResult.class,
+                        message -> sender().tell(
+                                Optional.ofNullable(results.get(message.getUrl())),
+                        self())
+                )
+                .match(
+                        AverageHttpResponseTimeApp.MessageGetResult.class,
+                        message -> results.put(
+                                message.getUrl(),
+                                message.getResponseTime())
+                )
                 .build();
     }
 }
