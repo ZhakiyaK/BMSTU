@@ -68,9 +68,9 @@ public class AverageHttpResponseTimeApp {
                                 actor,
                                 new MessageGetResult(req.first()),
                                 java.time.Duration.ofMillis(TIMEOUT_MILLISEC))
-                                .thenCompose( res -> {
+                                .thenCompose(res -> {
                                     if (((Optional<Long>) res).isPresent()) {
-                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get()));
+                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), (Optional<Long>) res).get()));
                                     } else {
                                         Sink<Integer, CompletionStage<Long>> fold = Sink.fold(FOLD_ZERO, (Function2<Long, Integer, Long>) Long::sum);
                                         Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
