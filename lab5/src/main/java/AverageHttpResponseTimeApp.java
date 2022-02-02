@@ -92,5 +92,24 @@ public class AverageHttpResponseTimeApp {
                                                 .thenApply(sum -> new Pair<>(req.first(), sum / req.second()));
                                     }
                                 }))
+                .map(res -> {
+                    actor.tell(
+                            new MessageCacheResult(res.first(), res.second()),
+                            ActorRef.noSender()
+                    );
+                    return HttpResponse.create().withEntity(res.first() + ": " + res.second().toString());
+                });
+    }
+
+    static class MessageGetResult {
+        private final String url;
+
+        public MessageGetResult(String, url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
     }
 }
