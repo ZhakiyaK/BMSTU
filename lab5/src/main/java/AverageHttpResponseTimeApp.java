@@ -52,7 +52,7 @@ public class AverageHttpResponseTimeApp {
         System.out.println("Server online in http://localhost:" + PORT + "/\nPress RETURN to stop...");
         System.in.read();
         binding.thenCompose(ServerBinding::unbind);
-        binding.thenAccept(unbound -> system.terminate()); // Выключенить 
+        binding.thenAccept(unbound -> system.terminate()); 
     }
 
     private static Flow<HttpRequest,HttpResponse,NotUsed> flowHttpRequest(ActorMaterializer materializer, ActorRef actor) {
