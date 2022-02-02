@@ -8,7 +8,7 @@ import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.Query;
-import akka.japi.Function2;
+import akka.japi.function.Function2;
 import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
@@ -26,8 +26,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-
-import static sun.jvm.hotspot.code.CompressedStream.L;
 
 public class AverageHttpResponseTimeApp {
     private static final String QUERY_PARAMETER_URL = "testUrl";
@@ -70,7 +68,7 @@ public class AverageHttpResponseTimeApp {
                                 java.time.Duration.ofMillis(TIMEOUT_MILLISEC))
                                 .thenCompose(res -> {
                                     if (((Optional<Long>) res).isPresent()) {
-                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), (Optional<Long>) res).get()));
+                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long>) res).get()));
                                     } else {
                                         Sink<Integer, CompletionStage<Long>> fold = Sink.fold(FOLD_ZERO, (Function2<Long, Integer, Long>) Long::sum);
                                         Sink<Pair<String, Integer>, CompletionStage<Long>> sink = Flow
@@ -104,7 +102,7 @@ public class AverageHttpResponseTimeApp {
     static class MessageGetResult {
         private final String url;
 
-        public MessageGetResult(String, url) {
+        public MessageGetResult(String url) {
             this.url = url;
         }
 
@@ -117,7 +115,7 @@ public class AverageHttpResponseTimeApp {
         private final String url;
         private final long responseTime;
 
-        public MessageCacheResult(String, url, long responseTime) {
+        public MessageCacheResult(String url, long responseTime) {
             this.url = url;
             this.responseTime = responseTime;
         }
