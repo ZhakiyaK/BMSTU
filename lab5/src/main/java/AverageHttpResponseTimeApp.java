@@ -27,6 +27,8 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+import static sun.jvm.hotspot.code.CompressedStream.L;
+
 public class AverageHttpResponseTimeApp {
     private static final String QUERY_PARAMETER_URL = "testUrl";
     private static final String QUERY_PARAMETER_COUNT = "count";
@@ -68,7 +70,7 @@ public class AverageHttpResponseTimeApp {
                                                                                                               if (((Optional<Long>) res).isPresent()) {
                                                                                                                   return CompletableFuture.completedFuture(new Pair<>(req.first(), ((Optional<Long> res).get()));
                                                                                                               } else {
-                                                                                                                  Sink<Integer, CompletionStage<Long>> fold = Sink.fold(0L, (Function2<Long, Integer, Long>) Long::sum);
+                                                                                                                  Sink<Integer, CompletionStage<Long>> fold = Sink.fold(L, (Function2<Long, Integer, Long>) Long::sum);
                                                                                                                   Sink<Pair<String,Integer>, CompletionStage<Long>> sink = Flow.<Pair<String, Integer>> create().mapConcat(r -> new ArrayList<>(Collections.nCopies(r.second(), r.first())))
                                                                                                                                                                                                                 .mapAsync(req.second(), url -> {
                                                                                                                                                                                                                 long start = System.currentTimeMillis();
@@ -80,9 +82,12 @@ public class AverageHttpResponseTimeApp {
                                                                                                                                                                                                                     });
                                                                                                                                                                                                                 })
                                                                                                               })
-                                                                                                              .toMat(fold, Keep.right());
+                                                                                                                .toMat(fold, Keep.right());
                                                                                                               return Source.from(Collections.singletonList(req))
+                                                                                                                .toMat(sink,Keep.right())
+                                                                                                                .run(materializer)
+                                                                                                                .thenApply(sum -> new Pair<>(req.first(), sum / req.second()));
                                                                                                           }
-                                          ))
+    }))
     }
 }
