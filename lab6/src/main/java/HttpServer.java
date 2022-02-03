@@ -1,2 +1,3 @@
-public class HttpServer {
+public class HttpServer implements Watcher {
+    
 }
