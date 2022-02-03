@@ -1,5 +1,3 @@
-
-
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -11,7 +9,9 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
-
+import org.apache.log4j.BasicConfigurator;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class AnonymizeApp {
             System.err.println("Usage: AnonymizeApp localhost: 2181 8000 8001");
             System.exit(-1);
         }
-        //BasicDiagnosticFormatter.BasicConfiguration();
+        BasicConfigurator.configure();
         printInGreen("start!\n" + Arrays.toString(args));
         ActorSystem system = ActorSystem.create("lab6");
         ActorRef actorConfig = system.actorOf(Props.create(ActorConfig.class));
