@@ -3,6 +3,8 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.http.javadsl.Http;
+import akka.stream.ActorMaterializer;
 import com.sun.tools.javac.util.BasicDiagnosticFormatter;
 
 import java.io.IOException;
@@ -27,6 +29,15 @@ public class AnonymizeApp {
         BasicDiagnosticFormatter.BasicConfiguration();
         printInGreen("start!\n" + Arrays.toString(args));
         ActorSystem system = ActorSystem.create("lab6");
-        ActorRef actorConfig = system.actorOf(Props.create(ActorConfig.class))
+        ActorRef actorConfig = system.actorOf(Props.create(ActorConfig.class));
+        final ActorMaterializer materializer = ActorMaterializer.create(system);
+        final Http http = Http.get(system);
+        ZooKeeper zk = null;
+
+        try {
+            zk= new ZooKeeper(args[INDEX_OF_ZOOKEEPER_ADDRESS_IN_ARGS], ZOOKEEPER_SESSION_TIMEOUT, null);
+            new ZooKeeperWatcher(zk, actorConfig);
+            
+        }
     }
 }
