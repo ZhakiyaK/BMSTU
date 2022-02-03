@@ -1,0 +1,2 @@
+public class ActorConfig {
+}
