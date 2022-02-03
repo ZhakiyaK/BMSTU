@@ -47,7 +47,7 @@ public class AnonymizeApp {
             zk= new ZooKeeper(args[INDEX_OF_ZOOKEEPER_ADDRESS_IN_ARGS], ZOOKEEPER_SESSION_TIMEOUT, null);
             new ZooKeeperWatcher(zk, actorConfig);
         } catch (InterruptedException | KeeperException e) {
-            e.printStackTrace();
+            e.print
             System.exit(-1);
         }
 
