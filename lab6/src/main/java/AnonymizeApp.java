@@ -59,7 +59,7 @@ public class AnonymizeApp {
                 HttpServer server = new HttpServer() {
                     @Override
                     public void bind(InetSocketAddress addr, int backlog) throws IOException {
-                        
+
                     }
 
                     @Override
