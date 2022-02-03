@@ -37,7 +37,7 @@ public class AnonymizeApp {
         try {
             zk= new ZooKeeper(args[INDEX_OF_ZOOKEEPER_ADDRESS_IN_ARGS], ZOOKEEPER_SESSION_TIMEOUT, null);
             new ZooKeeperWatcher(zk, actorConfig);
-            
+            Z
         }
     }
 }
