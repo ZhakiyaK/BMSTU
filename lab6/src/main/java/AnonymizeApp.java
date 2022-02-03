@@ -54,7 +54,7 @@ public class AnonymizeApp {
         List<CompletionStage<ServerBinding>> bindings = new ArrayList<>();
 
         StringBuilder serversInfo = new StringBuilder("Servers online at\n");
-        for (int i=1, i < args.length; i++) {
+        for (int i = 1, i < args.length; i++) {
             try {
                 HttpServer server = new HttpServer(http, actorConfig, zk, args[i]);
                 final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = server.createRoute().flow(system, materializer);
