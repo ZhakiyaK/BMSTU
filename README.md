@@ -1,1 +1,1 @@
-# DPDP_Labs
+# BMSTU Labs
