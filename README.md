@@ -10,7 +10,7 @@
 ## Содержание
 
 *   **1 курс, 1 семестр**
-    *   [Алгоритмы и структуры данных (Algorithms-and-Data-Structures)](./Algorithms-and-Data-Structures/)
+    *   [Алгоритмы и структуры данных (Algorithms-and-Data-Structures/C)](./Algorithms-and-Data-Structures/)
     *   [Основы информатики (Computer-Science-Basics)](./Computer-Science-Basics/)
 *   **1 курс, 2 семестр**
     *   [Языки и методы программирования (Programming-Languages-and-Methods)](./Programming-Languages-and-Methods/)
