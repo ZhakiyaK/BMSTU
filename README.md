@@ -14,9 +14,9 @@
     *   [Основы информатики (Computer-Science-Basics)](./Computer-Science-Basics/)
 *   **1 курс, 2 семестр**
     *   [Языки и методы программирования (Programming-Languages-and-Methods)](./Programming-Languages-and-Methods/)
-    *   [Дискретная математика (Discrete-Math)](./DiscreteMathematics/)
+    *   [Дискретная математика (DiscreteMathematics)](./DiscreteMathematics/)
 *   **2 курс, 3 семестр**
-    *   [Компьютерные сети (Computer-Networks)](./Networks/)
+    *   [Компьютерные сети (Networks)](./Networks/)
 *   **2 курс, 4 семестр**
     *   [Алгоритмы компьютерной графики (Computer-Graphics-Algorithms)](./GraphicsAlgorithms/)
 *   **3 курс, 5 семестр**
